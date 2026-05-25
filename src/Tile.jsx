@@ -114,7 +114,7 @@ export default function Tile({
     >
       <img
         className="tile__bg"
-        src={`/assets/${color === 'purple' ? 'purpule' : color}.png`}
+        src={`${import.meta.env.BASE_URL}assets/${color === 'purple' ? 'purpule' : color}.png`}
         alt=""
         draggable={false}
       />

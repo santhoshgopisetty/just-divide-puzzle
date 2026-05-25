@@ -64,7 +64,7 @@ export default function GameBoard({ grid, onCellDrop, hintCells, touchHover }) {
       {/* Cat mascot peeking over the board */}
       <img
         className="cat-mascot"
-        src="/assets/Cat.png"
+        src={`${import.meta.env.BASE_URL}assets/Cat.png`}
         alt="Cat mascot"
         draggable={false}
       />

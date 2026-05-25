@@ -87,7 +87,7 @@ export default function Header({
         <div className="badge" id="badge-level">
           <img
             className="badge__img"
-            src="/assets/Levels and Score.png"
+            src={`${import.meta.env.BASE_URL}assets/Levels and Score.png`}
             alt=""
           />
           <span className="badge__text">Level {level}</span>
@@ -95,7 +95,7 @@ export default function Header({
         <div className="badge" id="badge-score">
           <img
             className="badge__img"
-            src="/assets/Levels and Score.png"
+            src={`${import.meta.env.BASE_URL}assets/Levels and Score.png`}
             alt=""
           />
           <span className="badge__text">Score {score}</span>
