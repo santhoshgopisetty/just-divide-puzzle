@@ -2,7 +2,7 @@
 
 A beautiful, responsive, and mathematically engaging puzzle game built using **ReactJS** and **Vanilla CSS**. 
 
-## 🎮 How to Play
+## How to Play
 
 The game is played on a **4×4 grid**. Your objective is to place numbered tiles onto the grid to perform division-based merges, clear the board, and maximize your score before the grid fills up.
 
@@ -19,7 +19,7 @@ The game is played on a **4×4 grid**. Your objective is to place numbered tiles
 
 ---
 
-## ⌨️ Controls & Shortcuts
+## Controls & Shortcuts
 
 Interact using your mouse (desktop), touch gestures (mobile/tablet), or the following keyboard shortcuts:
 * **`Z`** → Undo last move (stores up to 10 moves).
@@ -31,7 +31,7 @@ Interact using your mouse (desktop), touch gestures (mobile/tablet), or the foll
 
 ---
 
-## 🏗️ Architecture & Component Design
+## Architecture & Component Design
 
 The application is structured into modular, reusable components with unidirectional state flow:
 
@@ -59,7 +59,7 @@ graph TD
 
 ## 💡 Key Design Decisions & Challenges
 
-### 📱 1. Custom Mobile Touch Drag & Drop (No External Libraries)
+### 1. Custom Mobile Touch Drag & Drop (No External Libraries)
 **Challenge:** Standard HTML5 Drag and Drop events (`onDragStart`, `onDragOver`, `onDrop`) are not supported by mobile browsers (iOS Safari, Android Chrome).
 **Solution:** Built a lightweight, high-performance touch dragging overlay directly using native touch events (`onTouchStart`, `onTouchMove`, `onTouchEnd`). 
 * When a touch starts on a draggable tile, it captures the tile's data and tracks the finger coords.
@@ -68,11 +68,11 @@ graph TD
 * On touch release, it applies the drop action to the highlighted target.
 * This approach achieves native-feeling drag performance on mobile devices with zero bundle-size overhead.
 
-### 🧠 2. Hint System Calculation
+### 2. Hint System Calculation
 **Challenge:** Finding cells that can trigger valid division or equality merges efficiently without performance drops.
 **Solution:** Created a quick scan algorithm in `mergeLogic.js` (`getHintCells`) that checks each empty cell, queries its adjacent cardinal neighbors, and verifies whether the current queue/keep tile value triggers any equal/divisible math rules with them. It updates instantly as the active tile switches or moves.
 
-### 🎨 3. Responsive Web Layout & Design Tuning
+### 3. Responsive Web Layout & Design Tuning
 **Challenge:** Creating a layout that feels compact on phone viewports but looks premium and occupies the screen beautifully at standard desktop layouts (e.g. 1440×1024).
 **Solution:**
 * Hand-crafted CSS layout using CSS Custom Properties (`--cell-size`, `--grid-gap`).
@@ -81,7 +81,7 @@ graph TD
 
 ---
 
-## 🚀 Future Improvements
+## Future Improvements
 1. **Interactive Audio**: Adding custom sound clips for cell drops, successful merges, level ups, and game-over states to increase player immersion.
 2. **Merge Animations**: Adding visual slide lines showing the movement of a smaller tile as it merges into a larger tile.
 3. **Global Leaderboard**: Integrating a firebase-backed database to store and display the top best scores globally.
