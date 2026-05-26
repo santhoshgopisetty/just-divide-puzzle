@@ -78,7 +78,7 @@ export default function App() {
       setBestScore(score);
       try {
         localStorage.setItem('justdivide_best', String(score));
-      } catch {}
+      } catch { }
     }
   }, [score, bestScore]);
 

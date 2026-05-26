@@ -48,7 +48,7 @@ export default function SidePanel({
     try {
       const payload = JSON.parse(e.dataTransfer.getData('application/json'));
       if (onKeepDrop) onKeepDrop(payload);
-    } catch {}
+    } catch { }
   };
 
   const handleKeepDragLeave = () => setKeepHover(false);
@@ -67,7 +67,7 @@ export default function SidePanel({
     try {
       const payload = JSON.parse(e.dataTransfer.getData('application/json'));
       if (onTrashDrop) onTrashDrop(payload);
-    } catch {}
+    } catch { }
   };
 
   const handleTrashDragLeave = () => setTrashHover(false);
