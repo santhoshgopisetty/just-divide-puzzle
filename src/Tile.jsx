@@ -48,25 +48,15 @@ export default function Tile({
     isDraggable ? 'tile--draggable' : '',
   ].filter(Boolean).join(' ');
 
-  /**
-   * handleDragStart
-   * ---------------
-   * When the user starts dragging this tile:
-   * 1. Store the drag payload (value + source info) in the dataTransfer object
-   * 2. Set the effectAllowed to 'move' (we're moving, not copying)
-   * 3. Call the optional parent callback
-   *
-   * The dataTransfer uses JSON so we can pass structured data (value, source).
-   */
   const handleDragStart = (e) => {
     if (!isDraggable) return;
 
-    // Build payload – tells drop targets WHAT was dragged and WHERE from
+
     const payload = JSON.stringify(dragData || { value });
     e.dataTransfer.setData('application/json', payload);
     e.dataTransfer.effectAllowed = 'move';
 
-    // Add visual class after a frame so the drag image captures the original look
+
     requestAnimationFrame(() => {
       e.target.classList.add('tile--dragging');
     });

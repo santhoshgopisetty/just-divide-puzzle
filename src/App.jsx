@@ -60,11 +60,10 @@ export default function App() {
   const [hintsEnabled, setHintsEnabled] = useState(false);
   const [timer, setTimer] = useState(0);
   const [gameOver, setGameOver] = useState(false);
-  const [difficulty, setDifficulty] = useState('Easy'); // 'Easy' | 'Medium' | 'Hard'
+  const [difficulty, setDifficulty] = useState('Easy');
 
-  // Touch drag-and-drop state
-  const [touchDrag, setTouchDrag] = useState(null); // { value, source, x, y }
-  const [touchHover, setTouchHover] = useState(null); // { type: 'grid-cell'|'keep'|'trash', r?, c? }
+  const [touchDrag, setTouchDrag] = useState(null);
+  const [touchHover, setTouchHover] = useState(null);
 
   /* ── Timer ────────────────────────────────────────────── */
   useEffect(() => {
@@ -94,7 +93,7 @@ export default function App() {
   /* ── Save snapshot for undo before every move ─────────── */
   const saveUndo = useCallback(() => {
     setUndoStack(prev => [
-      ...prev.slice(-9), // keep last 10 snapshots max
+      ...prev.slice(-9),
       {
         grid: grid.map(r => [...r]),
         queue: [...queue],
@@ -128,15 +127,15 @@ export default function App() {
   /* ── Drop handlers ────────────────────────────────────── */
   const handleCellDrop = useCallback((row, col, payload) => {
     if (gameOver) return;
-    if (grid[row][col] != null) return; // cell occupied
+    if (grid[row][col] != null) return;
 
     saveUndo();
 
-    // 1. Place tile on grid
+
     const placedGrid = grid.map(r => [...r]);
     placedGrid[row][col] = payload.value;
 
-    // 2. Run merge engine
+
     const { newGrid, pointsEarned, mergeLog } = applyMerges(placedGrid, row, col);
 
     if (mergeLog.length > 0) {
@@ -145,17 +144,17 @@ export default function App() {
 
     setGrid(newGrid);
 
-    // 3. Remove from source
+
     if (payload.source === 'queue') {
       setQueue(prev => advanceQueue(prev, level));
     } else if (payload.source === 'keep') {
       setKeepVal(null);
     }
 
-    // 4. Update Score
+
     setScore(prevScore => prevScore + pointsEarned);
 
-    // 5. Game over check
+
     if (checkGameOver(newGrid)) {
       setGameOver(true);
     }
@@ -163,15 +162,15 @@ export default function App() {
 
   const handleKeepDrop = useCallback((payload) => {
     if (gameOver) return;
-    if (payload.source === 'keep') return; // no swap to same slot
+    if (payload.source === 'keep') return;
 
     saveUndo();
 
     if (keepVal == null) {
-      // Empty KEEP
+
       setKeepVal(payload.value);
     } else {
-      // Occupied KEEP → swap
+
       setQueue(prev => {
         const advanced = advanceQueue(prev, level);
         return [keepVal, ...advanced.slice(0, 2)];
@@ -180,7 +179,7 @@ export default function App() {
       return;
     }
 
-    // Advance queue (if we dragged from queue)
+
     if (payload.source === 'queue') {
       setQueue(prev => advanceQueue(prev, level));
     }
@@ -270,7 +269,7 @@ export default function App() {
     if (!touchDrag) return;
     setTouchDrag(prev => (prev ? { ...prev, x: clientX, y: clientY } : null));
 
-    // Determine target drop zone
+
     const el = document.elementFromPoint(clientX, clientY);
     const target = el?.closest('[data-drop-target]');
     if (target) {
@@ -337,7 +336,7 @@ export default function App() {
   }, [touchDrag, grid, trashCount, handleCellDrop, handleKeepDrop, handleTrashDrop]);
 
   /* ── Hints ────────────────────────────────────────────── */
-  // Determine which tile is active for hinting (the floating touch tile or the top queue tile)
+
   const activeValueForHints = touchDrag ? touchDrag.value : queue[0];
   const hintCells = (hintsEnabled && activeValueForHints != null)
     ? getHintCells(grid, activeValueForHints)
@@ -390,7 +389,7 @@ export default function App() {
         />
       )}
 
-      {/* Floating tile during touch dragging */}
+
       {touchDrag && (
         <div
           className="touch-drag-floating"

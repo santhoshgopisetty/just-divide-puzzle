@@ -48,14 +48,14 @@ export default function SidePanel({
     try {
       const payload = JSON.parse(e.dataTransfer.getData('application/json'));
       if (onKeepDrop) onKeepDrop(payload);
-    } catch { /* ignore */ }
+    } catch {}
   };
 
   const handleKeepDragLeave = () => setKeepHover(false);
 
   /* ── TRASH drop handlers ─────────────────────────────── */
   const handleTrashDragOver = (e) => {
-    if (trashCount <= 0) return; // no uses left → reject
+    if (trashCount <= 0) return;
     e.preventDefault();
     e.dataTransfer.dropEffect = 'move';
     setTrashHover(true);
@@ -67,7 +67,7 @@ export default function SidePanel({
     try {
       const payload = JSON.parse(e.dataTransfer.getData('application/json'));
       if (onTrashDrop) onTrashDrop(payload);
-    } catch { /* ignore */ }
+    } catch {}
   };
 
   const handleTrashDragLeave = () => setTrashHover(false);
@@ -78,7 +78,6 @@ export default function SidePanel({
   return (
     <aside className="side-panel" id="side-panel" aria-label="Side panel">
       <div className="side-panel__strip">
-        {/* ── KEEP Slot ─────────────────────── */}
         <div
           className="keep-slot"
           id="keep-slot"
@@ -102,7 +101,6 @@ export default function SidePanel({
           <span className="keep-slot__label">Keep</span>
         </div>
 
-        {/* ── Queue ─────────────────────────── */}
         <div className="queue-section" id="queue-section" aria-label="Tile queue">
           {queue.map((val, i) => (
             <div className="queue-tile-wrapper" key={`q-${i}`}>
@@ -118,7 +116,6 @@ export default function SidePanel({
           ))}
         </div>
 
-        {/* ── TRASH Slot ────────────────────── */}
         <div
           className="trash-slot"
           id="trash-slot"

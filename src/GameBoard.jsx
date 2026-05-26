@@ -18,31 +18,18 @@ import Tile from './Tile';
  */
 
 export default function GameBoard({ grid, onCellDrop, hintCells, touchHover }) {
-  // Track which cell is currently being hovered during drag
+
   const [hoverCell, setHoverCell] = useState(null);
 
-  /**
-   * handleDragOver
-   * ──────────────
-   * Called continuously while a dragged item hovers over a cell.
-   * We must call e.preventDefault() to signal that this is a valid drop target.
-   * We only allow drops on empty cells.
-   */
+
   const handleDragOver = (e, r, c) => {
-    if (grid[r][c] != null) return; // occupied → reject
+    if (grid[r][c] != null) return;
     e.preventDefault();
     e.dataTransfer.dropEffect = 'move';
     setHoverCell(`${r}-${c}`);
   };
 
-  /**
-   * handleDrop
-   * ──────────
-   * Called when the user releases the dragged tile over a valid cell.
-   * 1. Parse the JSON payload from dataTransfer
-   * 2. Call the parent's onCellDrop callback with (row, col, payload)
-   * 3. Clear the hover highlight
-   */
+
   const handleDrop = (e, r, c) => {
     e.preventDefault();
     setHoverCell(null);
@@ -50,9 +37,7 @@ export default function GameBoard({ grid, onCellDrop, hintCells, touchHover }) {
     try {
       const payload = JSON.parse(e.dataTransfer.getData('application/json'));
       if (onCellDrop) onCellDrop(r, c, payload);
-    } catch {
-      // Invalid payload — ignore
-    }
+    } catch {}
   };
 
   const handleDragLeave = () => {
@@ -61,7 +46,7 @@ export default function GameBoard({ grid, onCellDrop, hintCells, touchHover }) {
 
   return (
     <div className="board-wrapper" id="game-board">
-      {/* Cat mascot peeking over the board */}
+
       <img
         className="cat-mascot"
         src={`${import.meta.env.BASE_URL}assets/Cat.png`}

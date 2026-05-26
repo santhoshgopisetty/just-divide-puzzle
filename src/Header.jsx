@@ -80,8 +80,7 @@ export default function Header({
         Divide with the numbers to solve the rows and columns.
       </p>
 
-      {/* Cat mascot + Badges are positioned here visually but
-          the cat is rendered inside GameBoard for proper layering */}
+
 
       <div className="header__badges" id="badges">
         <div className="badge" id="badge-level">
